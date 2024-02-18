@@ -6,30 +6,49 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/17 16:06:39 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/18 09:59:55 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <string.h>
 #include "get_next_line.h"
 
-int	main(int narg, **sarg)
+void	display(ptr)
+{
+}
+
+int	main(int narg,char **sarg)
 {
 	int		fd;
 	int		wtn;
+	size_t	len;
 	char	*ptr;
+	char	*end;
 	
 	ptr = 1;
-	if (narg != 2)
-		return (-1);
-	fd = open(sarg[1]);
-	if (fd < 0)
-		return (-1);
-	while (ptr)
+	if (narg == 1)
 	{
-		ptr = get_next_line(fd);
-		if (ptr)
-			wtn = write(0, ptr, BUFFER_SIZE);
+		while (ptr)
+		{
+			ptr = get_next_line(0);
+			if (ptr)
+				display(ptr);
+		}
+	return (0);
+	}
+	if (narg == 2)
+	{
+		fd = open(sarg[1]);
+		if (fd < 0)
+			return (-1);
+		while (ptr)
+		{
+			ptr = get_next_line(fd);
+			if (ptr)
+				display(ptr);
+		}
+		return (0);
 	}
 }

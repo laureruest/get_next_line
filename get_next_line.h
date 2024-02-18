@@ -6,13 +6,17 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:15:38 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/17 16:06:34 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/18 10:10:01 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 4096
+# endif
+# ifndef STDLIB_H
+#  include <stdlib.h>
+#  define STDLIB_H
 # endif
 
 char	*get_next_line(int fd);
@@ -30,7 +34,7 @@ char	*get_next_line(int fd);
 				   			(stat -f %k /Users/lruiz-es)
 		
 	Parameters:		fd: The file descriptor to read from
-	Return value:	Real line: correct behavior
+	Return value:	Read line: correct behavior
 					NULL: there is no nothing else to read, or an error ocurred
 
 	Description: 	The function returns a line readed from a file descriptor
