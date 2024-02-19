@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 16:18:32 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:28:58 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <string.h>
 #include "get_next_line.h"
 
-void	lnprint(ptr)
+void	lnprint(char *ptr)
 {
 	char	*endcur;
 
@@ -29,12 +29,12 @@ void	lnprint(ptr)
 	}
 }
 
-int	main(int narg,char **sarg)
+int	main(int narg, char **sarg)
 {
 	int		fd;
 	char	*ptr;
-	
-	ptr = 1;
+
+	ptr = (void *) 1;
 	if (narg == 1)
 	{
 		while (ptr)
@@ -47,12 +47,12 @@ int	main(int narg,char **sarg)
 			}
 			if (!ptr)
 				write(1, "HA DEVUELTO NULL", 15);
-		}	
-	return (0);
+		}
+		return (0);
 	}
 	if (narg == 2)
 	{
-		fd = open(sarg[1]);
+		fd = open(sarg[1], O_RDONLY);
 		if (fd < 3)
 			return (-1);
 		while (ptr)

@@ -6,19 +6,24 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:50:24 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 17:05:38 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:40:59 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*givline(char *buffer, size_t *idx, size_t *maxlen, int fd);
+
 char	*get_next_line(int fd)
 {
-	static char		*buffer = malloc(BUFFER_SIZE);
+	static char		*buffer;
 	char			*nwline;
-	static ssize_t	*mxbuflen = BUFFER_SIZE;
-	static ssize_t	*idx = BUFFER_SIZE;
+	static size_t	*mxbuflen;
+	static size_t	*idx;
 
+	*mxbuflen = BUFFER_SIZE;
+	*idx = BUFFER_SIZE;
+	buffer = malloc(BUFFER_SIZE);
 	if (buffer)
 	{
 		if (*idx > (*mxbuflen - 1))
