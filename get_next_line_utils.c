@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 18:41:43 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 18:45:02 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ size_t	transfer(char *nwptr, char *oldptr)
 	}
 	return (cursor);
 }
-	
+
 char	*build_nl(char *oldline, char *buffer, size_t *idx, size_t mxbuflen)
 {
 	char	*nl_toret;
@@ -97,7 +97,7 @@ char	*givline(char *buffer, size_t *idx, size_t *maxlen, int fd)
 				return (NULL);
 		}
 		if (p_nl)
-			p_ret = build_nl(p_ret, buffer, idx, ((size_t) (p_nl - p_ret + 1)));
+			p_ret = build_nl(p_ret, buffer, idx, ((size_t)(p_nl - p_ret + 1)));
 	}
 	return (p_ret);
 }
