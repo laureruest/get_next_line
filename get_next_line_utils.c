@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 18:45:02 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:52:55 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*build_nl(char *oldline, char *buffer, size_t *idx, size_t mxbuflen)
 	if (nl_toret)
 	{
 		nl_cursor = transfer(nl_toret, oldline);
-		while (*idx < mxbuflen)
+		while (*(idx) < mxbuflen)
 			nl_toret[nl_cursor++] = buffer[*idx++];
 		nl_toret[nl_cursor] = '\0';
 	}

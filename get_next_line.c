@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:50:24 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 18:40:59 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 19:36:09 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	*get_next_line(int fd)
 	static size_t	*mxbuflen;
 	static size_t	*idx;
 
+	mxbuflen = malloc(1);
+	idx = malloc(1);
 	*mxbuflen = BUFFER_SIZE;
 	*idx = BUFFER_SIZE;
 	buffer = malloc(BUFFER_SIZE);

@@ -1,0 +1,33 @@
+(lldb) target create "../a.out"
+Current executable set to '/Users/lruiz-es/Desktop/get_next_line/a.out' (x86_64).
+(lldb) settings set -- target.run-args  "deutsch.input"
+   33  	{
+   34  		int		fd;
+   35  		char	*ptr;
+   36  	
+   37  		ptr = (void *) 1;
+   38  		if (narg == 1)
+   39  		{
+   40  			while (ptr)
+   41  			{
+   42  				ptr = get_next_line(0);
+   43  				if (ptr)
+   44  				{
+   45  					lnprint(ptr);
+   46  					free(ptr);
+   47  				}
+   48  				if (!ptr)
+   49  					write(1, "HA DEVUELTO NULL", 15);
+   50  			}
+   51  			return (0);
+   52  		}
+   53  		if (narg == 2)
+   54  		{
+   55  			fd = open(sarg[1], O_RDONLY);
+   56  			if (fd < 3)
+   57  				return (-1);
+   58  			while (ptr)
+   59  			{
+   60  				ptr = get_next_line(fd);
+   61  				if (ptr)
+   62  				{
