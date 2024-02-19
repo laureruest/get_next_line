@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:50:24 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/18 19:04:33 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:05:38 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_next_line(int fd)
 			if (*mxbuflen <= 0)
 				return (NULL);
 		}
-		nwline = givline(buffer, idx, mxbuflen);
+		nwline = givline(buffer, idx, mxbuflen, fd);
 		return (nwline);
 	}
 	return (NULL);

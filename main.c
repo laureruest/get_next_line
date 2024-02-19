@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/18 12:41:27 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:18:32 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ int	main(int narg,char **sarg)
 				lnprint(ptr);
 				free(ptr);
 			}
-		}
+			if (!ptr)
+				write(1, "HA DEVUELTO NULL", 15);
+		}	
 	return (0);
 	}
 	if (narg == 2)
@@ -61,7 +63,8 @@ int	main(int narg,char **sarg)
 				lnprint(ptr);
 				free(ptr);
 			}
-
+			if (!ptr)
+				write(1, "HA DEVUELTO NULL", 15);
 		}
 		return (close(fd));
 	}

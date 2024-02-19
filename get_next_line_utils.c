@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/18 19:04:28 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/19 17:05:32 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ char	*build_nl(char *oldline, char *buffer, ssize_t *idx, ssize_t *mxbuflen)
 	{
 		nl_cursor = transfer(nl_toret, oldline);
 		while (*idx < *mxbuflen)
-		{
-			nl_toret[nl_cursor] = buffer[*idx];
-			*idx++;
-			nl_cursor++;
-		}
+			nl_toret[nl_cursor++] = buffer[*idx++];
 		nl_toret[nl_cursor] = '\0';
 	}
 	return (nl_toret);
@@ -72,31 +68,38 @@ ssize_t	transfer(char *nwptr, char *oldptr)
 	return (cursor);
 }
 
-char	*givline(char *buffer, ssize_t *idx, ssize_t *maxlen)
+char	*reseting(char *siso, int *a, int *b)
 {
-	char	*ptr_nl;
-	char	*ptr_toret;
+	*a = 0;
+	*b = 0;
+	return (siso);
+}
 
-	ptr_nl = 0;
-	ptr_toret = NULL;
-	while (!ptr_nl)
+char	*givline(char *buffer, ssize_t *idx, ssize_t *maxlen, int fd)
+{
+	char	*p_nl;
+	char	*p_ret;
+
+	p_nl = 0;
+	p_ret = NULL;
+	while (!p_nl)
 	{
-		ptr_nl = srch_nl(buffer, *idx, *maxlen);
-		if (!ptrnl)
+		p_nl = srch_nl(buffer, *idx, *maxlen);
+		if (!p_nl)
 		{
 			if (*maxlen < BUFFER_SIZE)
 			{
-				prt_toret = build_nl(ptr_toret, buffer, idx, maxlen);
-				*idx = 0;
-				*maxlen = 0;
-				return (ptr_toret);
+				p_ret = build_nl(p_ret, buffer, idx, maxlen);
+				return(reseting (p_ret, *idx, *maxlen));
 			}
-			ptr_toret = build_nl(ptr_toret, buffer, idx, maxlen);
-			//hay que llenar el buffer
-			if (!ptr_toret)
+			p_ret = build_nl(p_ret, buffer, idx, maxlen);
+			if (*idx == BUFFER_SIZE)
+				*mxbuflen = read(fd, buffer, BUFFER_SIZE);
+			if (!p_ret)
 				return (NULL);
 		}
-		// aqui va el caso para ultimo trozo de la linea cuando encuentras NULL
+		if (p_nl)
+			p_ret = build_nl(p_ret, buffer, idx, (ssize_t)(p_nl - p_ret + 1));
 	}
 	return (ptr_toret);
 }
