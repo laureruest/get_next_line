@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 19:52:55 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/21 20:16:29 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,31 +73,52 @@ char	*reseting(char *siso, size_t *a, size_t *b)
 	return (siso);
 }
 
-char	*givline(char *buffer, size_t *idx, size_t *maxlen, int fd)
+struct	s_nl
 {
-	char	*p_nl;
-	char	*p_ret;
+	long long int	o_size, nw_size;
+	char			*o_ln, *nw_ln;
+};
+struct	s_buffer
+{
+	long long int	idx, mxlen;
+	char			buf[BUFFER_SIZE];
+};
 
-	p_nl = 0;
-	p_ret = NULL;
-	while (!p_nl)
+char	*e_ln_n_null(struct s_nl *ln, struct s_buffer *bf)
+{
+	*ln.nw_ln = malloc(*ln.o_size + *bf.mxlen - *bf.idx);
+	if (!*ln.nw_ln)
+		return (NULL);
+	*ln.nw_size = 0;
+	while (*ln.o_size > 0)
+		*ln.nw_ln[*ln.nw_size++] = *ln.o_ln[*ln.o_size--];
+	if (*ln.o_ln)
+		free (*ln.o_ln);
+	while (*bf.idx < *bf.mxlen)
+		*ln.nw_ln[ln.nw_size++] = *bf.buf[*bf.idx++];
+	return (*ln.nw_ln);
+}
+// construir funciones ins_part_ln_r y e_ln_n
+char	*givline(struct s_buffer *bf, int fd)
+{
+	struct s_nl	ln;
+	char		*mark;
+
+	ln.o_ln = NULL;
+	ln.nw_ln = NULL;
+	mark = NULL;
+	while (!mark)
 	{
-		p_nl = srch_nl(buffer, *idx, *maxlen);
-		if (!p_nl)
+		mark = srch_nl(bf);
+		if (!mark)
 		{
-			if (*maxlen < BUFFER_SIZE)
-			{
-				p_ret = build_nl(p_ret, buffer, idx, *maxlen);
-				return (reseting (p_ret, idx, maxlen));
-			}
-			p_ret = build_nl(p_ret, buffer, idx, *maxlen);
-			if (*idx == BUFFER_SIZE)
-				*maxlen = read(fd, buffer, BUFFER_SIZE);
-			if (!p_ret)
+			if (*bf.mxlen < BUFFER_SIZE)
+				return (e_ln_n_null(&ln, bf));
+			if (*bf.idx == BUFFER_SIZE)
+				ins_part_ln_r(&ln, bf, fd);
+			if (!ln.o_ln)
 				return (NULL);
 		}
-		if (p_nl)
-			p_ret = build_nl(p_ret, buffer, idx, ((size_t)(p_nl - p_ret + 1)));
 	}
-	return (p_ret);
+	return (e_ln_n(&ln, bf, mark);
 }
