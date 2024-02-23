@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 15:50:24 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/21 20:16:35 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/23 18:22:00 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ struct	s_buffer
 	char			buf[BUFFER_SIZE];
 };
 
-char	*givline(struct s_buffer *bf, int fd);
+char	*givline(s_buffer *bf, int fd);
 
 char	*get_next_line(int fd)
 {
@@ -32,6 +32,6 @@ char	*get_next_line(int fd)
 			if (bf.mxlen <= 0)
 				return (NULL);
 		}
-	nwline = givline(&bf, fd);
+	nwline = givline(bf, fd);
 	return (nwline);
 }
