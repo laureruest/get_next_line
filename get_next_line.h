@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:15:38 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 18:43:34 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:09:19 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,22 @@
 #  define UNISTD_H
 # endif
 
-char		*get_next_line(int fd);
+struct	s_buffer
+{
+	long long int	idx;
+	long long int	mxlen;
+	char			buf[BUFFER_SIZE];
+};
+
+struct	s_nl
+{
+	long long int	o_size;
+	long long int	nw_size;
+	char			*o_ln;
+	char			*nw_ln;
+};
+
+char	*get_next_line(int fd);
 # define GET_NEXT_LINE_H
 #endif
 /*

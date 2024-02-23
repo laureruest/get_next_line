@@ -6,24 +6,13 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/23 18:22:03 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:11:28 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-struct	s_nl
-{
-	long long int	o_size, nw_size;
-	char			*o_ln, *nw_ln;
-};
-struct	s_buffer
-{
-	long long int	idx, mxlen;
-	char			buf[BUFFER_SIZE];
-};
-
-long long int	srch_nl(struct s_buffer *bf, struct s_nl *ln)
+long long int	srch_nl(struct s_buffer *bf)
 {
 	long long int	cur;
 
@@ -40,25 +29,26 @@ long long int	srch_nl(struct s_buffer *bf, struct s_nl *ln)
 void	ins_part_ln_r(struct s_nl *ln, struct s_buffer *bf, int fd)
 {
 	long long int	idx;
-	
+
 	ln->nw_ln = malloc(ln->o_size + BUFFER_SIZE);
-	if (!ln->nw_ln)
-		return (NULL);
-	idx = 0;
-	ln->nw_size = 0;
-	while (ln->o_size >0)
+	if (ln->nw_ln)
 	{
-		ln->nw_ln[ln->nw_size++] = ln->o_ln[idx++];
-		ln->o_size--;
+		idx = 0;
+		ln->nw_size = 0;
+		while (ln->o_size > 0)
+		{
+			ln->nw_ln[ln->nw_size++] = ln->o_ln[idx++];
+			ln->o_size--;
+		}
+		if (ln->o_ln)
+			free (ln->o_ln);
+		while (bf->idx < BUFFER_SIZE)
+			ln->nw_ln[ln->nw_size++] = bf->buf[bf->idx++];
+		ln->o_size = ln->nw_size;
+		bf->idx = 0;
+		bf->mxlen = read(fd, &bf->buf[0], BUFFER_SIZE);
 	}
-	if (ln->o_ln)
-		free (ln->o_ln);
-	while (bf->idx < BUFFER_SIZE)
-		ln->nw_ln[ln->nw_size++] = bf->buf[bf->idx++];
-	ln->o_size = ln->nw_size;
 	ln->o_ln = ln->nw_ln;
-	bf->idx = 0;
-	bf->mxlen = read(fd, &bf->buf[0], BUFFER_SIZE);
 }
 
 char	*e_ln_n(struct s_nl *ln, struct s_buffer *bf, long long int nll_mark)
@@ -85,6 +75,7 @@ char	*e_ln_n(struct s_nl *ln, struct s_buffer *bf, long long int nll_mark)
 char	*e_ln_n_n(struct s_nl *ln, struct s_buffer *bf)
 {
 	long long int	idx;
+
 	ln->nw_ln = malloc(ln->o_size + bf->mxlen - bf->idx);
 	if (!ln->nw_ln)
 		return (NULL);
@@ -101,7 +92,7 @@ char	*e_ln_n_n(struct s_nl *ln, struct s_buffer *bf)
 		ln->nw_ln[ln->nw_size++] = bf->buf[bf->idx++];
 	return (ln->nw_ln);
 }
-// construir funciones e_ln_n
+
 char	*givline(struct s_buffer *bf, int fd)
 {
 	struct s_nl		ln;
@@ -118,12 +109,12 @@ char	*givline(struct s_buffer *bf, int fd)
 		if (!id_mrk)
 		{
 			if (bf->mxlen < BUFFER_SIZE)
-				return (e_ln_n_n(ln, bf));
+				return (e_ln_n_n(&ln, bf));
 			if (bf->mxlen == BUFFER_SIZE)
-				ins_part_ln_r(ln, bf, fd);
+				ins_part_ln_r(&ln, bf, fd);
 			if (!ln.o_ln)
 				return (NULL);
 		}
 	}
-	return (e_ln_n(ln, bf, id_mrk));
+	return (e_ln_n(&ln, bf, id_mrk));
 }
