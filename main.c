@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/19 20:00:15 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:42:41 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,13 @@
 #include <string.h>
 #include "get_next_line.h"
 
-void	lnprint(char *ptr)
-{
-	char	*endcur;
-
-	if (ptr)
-	{
-		endcur = memchr(ptr, '\n', strlen(ptr));
-		if (endcur)
-			write(1, ptr, (endcur - ptr + 1));
-		if (!endcur)
-			write(1, ptr, strlen(ptr));
-	}
-}
-
 int	main(void)
 {
 	int		fd;
 	char	*ptr;
 
 	ptr = (void *) 1;
-	fd = open("test_input_files/spanish.input", O_RDONLY);
+	fd = open("test_input_files/spanish_no_last_n.input", O_RDONLY);
 	if (fd < 3)
 		return (-1);
 	while (ptr)
@@ -43,11 +29,12 @@ int	main(void)
 		ptr = get_next_line(fd);
 		if (ptr)
 		{
-			lnprint(ptr);
+			write(1, ptr, strlen(ptr));
 			free(ptr);
+			write(1, "!!!!!!!!!!!!!HA ESCRITO UNA LINEA!!!!!!!!!!!!!!", 47);
 		}
 		if (!ptr)
-			write(1, "HA DEVUELTO NULL", 15);
+			write(1, "!!!!!!!!!!!!!!!!!HA DEVUELTO NULL!!!!!!!!!!!!!!", 47);
 	}
 	return (close(fd));
 }

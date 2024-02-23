@@ -6,10 +6,13 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/23 19:11:28 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/23 19:55:14 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+// Parece ser que cuando el salto de linea coincide con los extremos no
+// es detectado y no se devuelven las lineas completas con sus saltos 
+// de linea en su lugar
 #include "get_next_line.h"
 
 long long int	srch_nl(struct s_buffer *bf)
@@ -55,7 +58,7 @@ char	*e_ln_n(struct s_nl *ln, struct s_buffer *bf, long long int nll_mark)
 {
 	long long int	idx;
 
-	ln->nw_ln = malloc(ln->o_size + nll_mark - bf->idx);
+	ln->nw_ln = malloc(ln->o_size + 1 + nll_mark - bf->idx);
 	if (!ln->nw_ln)
 		return (NULL);
 	ln->nw_size = 0;
@@ -69,6 +72,7 @@ char	*e_ln_n(struct s_nl *ln, struct s_buffer *bf, long long int nll_mark)
 		free(ln->o_ln);
 	while (bf->idx <= nll_mark)
 		ln->nw_ln[ln->nw_size++] = bf->buf[bf->idx++];
+	ln->nw_ln[ln->nw_size] = '\0';
 	return (ln->nw_ln);
 }
 
@@ -76,7 +80,7 @@ char	*e_ln_n_n(struct s_nl *ln, struct s_buffer *bf)
 {
 	long long int	idx;
 
-	ln->nw_ln = malloc(ln->o_size + bf->mxlen - bf->idx);
+	ln->nw_ln = malloc(ln->o_size + 1 + bf->mxlen - bf->idx);
 	if (!ln->nw_ln)
 		return (NULL);
 	ln->nw_size = 0;
@@ -90,6 +94,7 @@ char	*e_ln_n_n(struct s_nl *ln, struct s_buffer *bf)
 		free (ln->o_ln);
 	while (bf->idx < bf->mxlen)
 		ln->nw_ln[ln->nw_size++] = bf->buf[bf->idx++];
+	ln->nw_ln[ln->nw_size] = '\0';
 	return (ln->nw_ln);
 }
 
