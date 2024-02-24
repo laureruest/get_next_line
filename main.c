@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/24 14:04:40 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/24 16:59:32 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include <unistd.h>
 #include <string.h>
 #include "get_next_line.h"
-/*
+
 int	main(void)
 {
 	int		fd;
 	char	*ptr;
 
 	ptr = (void *) 1;
-	fd = open("test_input_files/texto_nulls_and_n_no_last_n.input", O_RDONLY);
+	fd = open("test_input_files/limits.txt", O_RDONLY);
 	if (fd < 3)
 		return (-1);
 	while (ptr)
@@ -38,8 +38,8 @@ int	main(void)
 	}
 	return (close(fd));
 }
-*/
-void	lnprint(char *ptr)
+
+/*void	lnprint(char *ptr)
 {
 	char	*endcur;
 
@@ -92,4 +92,4 @@ int	main(int narg, char **sarg)
 		}
 		return (close(fd));
 	}
-}
+}*/
