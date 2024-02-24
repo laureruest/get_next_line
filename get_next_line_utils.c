@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/23 19:55:14 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/24 09:31:03 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*e_ln_n(struct s_nl *ln, struct s_buffer *bf, long long int nll_mark)
 {
 	long long int	idx;
 
-	ln->nw_ln = malloc(ln->o_size + 1 + nll_mark - bf->idx);
+	ln->nw_ln = malloc(ln->o_size + 2 + nll_mark - bf->idx);
 	if (!ln->nw_ln)
 		return (NULL);
 	ln->nw_size = 0;
@@ -108,6 +108,8 @@ char	*givline(struct s_buffer *bf, int fd)
 	ln.o_size = 0;
 	ln.nw_size = 0;
 	id_mrk = 0;
+	if (bf->buf[bf->idx] == '\n')
+		return (e_ln_n(&ln, bf, bf->idx));
 	while (!id_mrk)
 	{
 		id_mrk = srch_nl(bf);
@@ -120,6 +122,7 @@ char	*givline(struct s_buffer *bf, int fd)
 			if (!ln.o_ln)
 				return (NULL);
 		}
+
 	}
 	return (e_ln_n(&ln, bf, id_mrk));
 }
