@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/23 19:42:41 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/24 14:04:40 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,32 @@
 #include <unistd.h>
 #include <string.h>
 #include "get_next_line.h"
-
+/*
 int	main(void)
 {
 	int		fd;
 	char	*ptr;
 
 	ptr = (void *) 1;
-	fd = open("test_input_files/spanish_no_last_n.input", O_RDONLY);
+	fd = open("test_input_files/texto_nulls_and_n_no_last_n.input", O_RDONLY);
 	if (fd < 3)
 		return (-1);
 	while (ptr)
 	{
 		ptr = get_next_line(fd);
 		if (ptr)
-		{
-			write(1, ptr, strlen(ptr));
+		//{
+		//	write(1, ptr, strlen(ptr));
 			free(ptr);
-			write(1, "!!!!!!!!!!!!!HA ESCRITO UNA LINEA!!!!!!!!!!!!!!", 47);
-		}
+		//	write(1, "!!!!!!!!!!!!!HA ESCRITO UNA LINEA!!!!!!!!!!!!!!", 47);
+		//}
 		if (!ptr)
 			write(1, "!!!!!!!!!!!!!!!!!HA DEVUELTO NULL!!!!!!!!!!!!!!", 47);
 	}
 	return (close(fd));
 }
-/*void	lnprint(char *ptr)
+*/
+void	lnprint(char *ptr)
 {
 	char	*endcur;
 
@@ -68,8 +69,8 @@ int	main(int narg, char **sarg)
 				lnprint(ptr);
 				free(ptr);
 			}
-			if (!ptr)
-				write(1, "HA DEVUELTO NULL", 15);
+//			if (!ptr)
+//				write(1, "HA DEVUELTO NULL", 15);
 		}
 		return (0);
 	}
@@ -86,9 +87,9 @@ int	main(int narg, char **sarg)
 				lnprint(ptr);
 				free(ptr);
 			}
-			if (!ptr)
-				write(1, "HA DEVUELTO NULL", 15);
+//			if (!ptr)
+//				write(1, "HA DEVUELTO NULL", 15);
 		}
 		return (close(fd));
 	}
-}*/
+}

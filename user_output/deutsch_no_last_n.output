@@ -1,3 +1,0 @@
-(lldb) target create "../a.out"
-Current executable set to '/Users/lruiz-es/Desktop/get_next_line/a.out' (x86_64).
-(lldb) settings set -- target.run-args  "deutsch_no_last_n.input"

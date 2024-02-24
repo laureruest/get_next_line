@@ -6,13 +6,10 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/24 09:31:03 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/24 15:04:14 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// Parece ser que cuando el salto de linea coincide con los extremos no
-// es detectado y no se devuelven las lineas completas con sus saltos 
-// de linea en su lugar
 #include "get_next_line.h"
 
 long long int	srch_nl(struct s_buffer *bf)
@@ -108,10 +105,10 @@ char	*givline(struct s_buffer *bf, int fd)
 	ln.o_size = 0;
 	ln.nw_size = 0;
 	id_mrk = 0;
-	if (bf->buf[bf->idx] == '\n')
-		return (e_ln_n(&ln, bf, bf->idx));
 	while (!id_mrk)
 	{
+		if (bf->buf[bf->idx] == '\n')
+			return (e_ln_n(&ln, bf, bf->idx));
 		id_mrk = srch_nl(bf);
 		if (!id_mrk)
 		{
@@ -122,7 +119,6 @@ char	*givline(struct s_buffer *bf, int fd)
 			if (!ln.o_ln)
 				return (NULL);
 		}
-
 	}
 	return (e_ln_n(&ln, bf, id_mrk));
 }
