@@ -6,10 +6,11 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/25 14:35:22 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/25 17:54:49 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
@@ -21,7 +22,29 @@
 	char	*ptr;
 
 	ptr = (void *) 1;
-	fd = open("test_input_files/read_error.input", O_RDONLY);
+	fd = open("test_input_files/texto_nulls_and_n.input", O_RDONLY);
+	if (fd < 3)
+		return (-1);
+	while (ptr)
+	{
+		ptr = get_next_line(fd);
+		if (ptr)
+		//{
+		//	write(1, ptr, strlen(ptr));
+			free(ptr);
+		//	write(1, "!!!!!!!!!!!!!HA ESCRITO UNA LINEA!!!!!!!!!!!!!!", 47);
+		//}
+		if (!ptr)
+			write(1, "!!!!!!!!!!!!!!!!!HA DEVUELTO NULL!!!!!!!!!!!!!!", 47);
+	}
+	return (close(fd));
+}*//*int	main(void)
+{
+	int		fd;
+	char	*ptr;
+
+	ptr = (void *) 1;
+	fd = open("test_input_files/texto_nulls_and_n_no_last_n.input", O_RDONLY);
 	if (fd < 3)
 		return (-1);
 	while (ptr)
@@ -69,7 +92,7 @@ int	main(int narg, char **sarg)
 				lnprint(ptr);
 				free(ptr);
 			}
-//			if (!ptr)
+//		if (!ptr)
 //				write(1, "HA DEVUELTO NULL", 15);
 		}
 		return (0);
@@ -90,6 +113,8 @@ int	main(int narg, char **sarg)
 //			if (!ptr)
 //				write(1, "HA DEVUELTO NULL", 15);
 		}
+//		write(1, "Es el buffer_size:", 18);
+//		printf("%d", BUFFER_SIZE);
 		return (close(fd));
 	}
 }
