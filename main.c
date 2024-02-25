@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/17 14:14:31 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/24 16:59:32 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/25 14:35:22 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include <string.h>
 #include "get_next_line.h"
 
-int	main(void)
+/*int	main(void)
 {
 	int		fd;
 	char	*ptr;
 
 	ptr = (void *) 1;
-	fd = open("test_input_files/limits.txt", O_RDONLY);
+	fd = open("test_input_files/read_error.input", O_RDONLY);
 	if (fd < 3)
 		return (-1);
 	while (ptr)
@@ -37,9 +37,9 @@ int	main(void)
 			write(1, "!!!!!!!!!!!!!!!!!HA DEVUELTO NULL!!!!!!!!!!!!!!", 47);
 	}
 	return (close(fd));
-}
+}*/
 
-/*void	lnprint(char *ptr)
+void	lnprint(char *ptr)
 {
 	char	*endcur;
 
@@ -92,4 +92,4 @@ int	main(int narg, char **sarg)
 		}
 		return (close(fd));
 	}
-}*/
+}

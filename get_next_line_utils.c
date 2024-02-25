@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/25 13:31:24 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/25 14:30:14 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ char	*e_ln_n(struct s_nl *ln, struct s_buffer *bf, long long int nll_mark)
 char	*e_ln_n_n(struct s_nl *ln, struct s_buffer *bf)
 {
 	long long int	idx;
+	long long int	limit;
 
+	limit = ln->o_size + 1 + bf->mxlen - bf->idx;
 	ln->nw_ln = malloc(ln->o_size + 1 + bf->mxlen - bf->idx);
 	if (!ln->nw_ln)
 		return (NULL);
@@ -91,7 +93,8 @@ char	*e_ln_n_n(struct s_nl *ln, struct s_buffer *bf)
 		free (ln->o_ln);
 	while (bf->idx < bf->mxlen)
 		ln->nw_ln[ln->nw_size++] = bf->buf[bf->idx++];
-	ln->nw_ln[ln->nw_size] = '\0';
+	if (ln->nw_size < limit)
+		ln->nw_ln[ln->nw_size] = '\0';
 	return (ln->nw_ln);
 }
 
@@ -114,6 +117,8 @@ char	*givline(struct s_buffer *bf, int fd)
 				return (e_ln_n_n(&ln, bf));
 			if (bf->mxlen == BUFFER_SIZE)
 				ins_part_ln_r(&ln, bf, fd);
+			if (bf->mxlen < 1)
+				return (e_ln_n_n(&ln, bf));
 			if (!ln.o_ln)
 				return (NULL);
 		}
