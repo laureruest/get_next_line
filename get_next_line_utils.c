@@ -6,7 +6,7 @@
 /*   By: lruiz-es <lruiz-es@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 09:20:39 by lruiz-es          #+#    #+#             */
-/*   Updated: 2024/02/24 15:04:14 by lruiz-es         ###   ########.fr       */
+/*   Updated: 2024/02/25 13:31:24 by lruiz-es         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ long long int	srch_nl(struct s_buffer *bf)
 			return (cur);
 		cur++;
 	}
-	return (0);
+	return (-1);
 }
 
 void	ins_part_ln_r(struct s_nl *ln, struct s_buffer *bf, int fd)
@@ -104,13 +104,11 @@ char	*givline(struct s_buffer *bf, int fd)
 	ln.o_ln = NULL;
 	ln.o_size = 0;
 	ln.nw_size = 0;
-	id_mrk = 0;
-	while (!id_mrk)
+	id_mrk = -1;
+	while (id_mrk == -1)
 	{
-		if (bf->buf[bf->idx] == '\n')
-			return (e_ln_n(&ln, bf, bf->idx));
 		id_mrk = srch_nl(bf);
-		if (!id_mrk)
+		if (id_mrk == -1)
 		{
 			if (bf->mxlen < BUFFER_SIZE)
 				return (e_ln_n_n(&ln, bf));
